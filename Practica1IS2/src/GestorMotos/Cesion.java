@@ -66,7 +66,11 @@ public class Cesion
         this.fechaCesion = fechaCesion;
     }
     
-     public String toString()
+    /**
+     *
+     * @return
+     */
+    public String toString()
     {
         return "\n Antiguo propietario:  " + antiguoPropietario.getNombreSocio() 
                 + "\n Nuevo Propietario: " + nuevoPropietario.getNombreSocio() 

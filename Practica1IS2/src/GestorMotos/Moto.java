@@ -19,6 +19,7 @@ public class Moto
     private float costeMoto;
     private String matricula;
     private Socio socioMotoPropietario;
+    private float otrosGastos;
    
     /******************** Moto ******************
     * Constructor de la clase                   *
@@ -28,7 +29,7 @@ public class Moto
     * @param costeMoto                          *
     * @param socioMotoPropietario               *
     *********************************************/
-    Moto(String nombreMoto, String cc, String matricula,float costeMoto, Socio socioMotoPropietario)
+    Moto(String nombreMoto, String cc, String matricula,float costeMoto, Socio socioMotoPropietario, float otrosGastos)
     {
         this.cc = cc;
         this.nombreMoto = nombreMoto;
@@ -38,6 +39,7 @@ public class Moto
         ID_SMoto++;
         cadena_IDMoto = String.format("%05d", ID_SMoto);
         this.socioMotoPropietario = socioMotoPropietario;
+        this.otrosGastos = otrosGastos;
     }
 
     
@@ -166,4 +168,24 @@ public class Moto
         return "Moto tipo: "+ nombreMoto +" con ID: "+ cadena_IDMoto + " Matricula: " + matricula + "\n Coste: "+ Float.toString(costeMoto) + "€ Propietario " + socioMotoPropietario.getNombreSocio() + " \n ********************* \n";     
     }
     
+    
+    /*********************** anyadirGastos *********************
+    * Suma los gastosAñadidos a los otrosGastos que ya tiene   *
+    * @param gastosAñadidos                                    *
+    * @return void                                             *
+    ************************************************************/
+    void anyadirGastos(float gastosAñadido)
+    {
+        this.otrosGastos =+ gastosAñadido;
+    }
+    
+    
+    /************* getOtrosGastos ***********
+    * Devuelve el parametro de otrosGastos  *
+    * @return float                         *
+    *****************************************/
+    float getOtrosGastos()
+    {
+        return this.otrosGastos;
+    }
 }

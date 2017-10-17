@@ -51,12 +51,12 @@ public class GestorMotos
         Socio socio3 = new Socio ("Andros Peñas");
       
         
-        Moto moto1 = new Moto ("Vespa Primavera", "125","0000AAA",2500, socio1);
-        Moto moto2 = new Moto ("Vespa Primavera", "125","0000BBB",2500, socio1);
-        Moto moto3 = new Moto ("Motobenae Poney AG2", "70","0000CCC", 2300, socio2);
-        Moto moto4 = new Moto ("Bultaco", "200","0000DDD", 3800, socio2);
-        Moto moto5 = new Moto ("Guzzi Cardelino", "75","0000EEE", 1200, socio3);
-        Moto moto6 = new Moto ("Ducati mini", "49","0000FFF", 4000, socio3);
+        Moto moto1 = new Moto ("Vespa Primavera", "125","0000AAA",2500, socio1, 10);
+        Moto moto2 = new Moto ("Vespa Primavera", "125","0000BBB",2500, socio1, 30);
+        Moto moto3 = new Moto ("Motobenae Poney AG2", "70","0000CCC", 2300, socio2, 15);
+        Moto moto4 = new Moto ("Bultaco", "200","0000DDD", 3800, socio2, 0);
+        Moto moto5 = new Moto ("Guzzi Cardelino", "75","0000EEE", 1200, socio3, 16);
+        Moto moto6 = new Moto ("Ducati mini", "49","0000FFF", 4000, socio3, 87);
         
         listaMotos.add(moto1);
         listaMotos.add(moto2);
@@ -104,7 +104,8 @@ public class GestorMotos
             System.out.println("4 Listar en pantalla los miembros con moto en posesion \n");
             System.out.println("5 Listar todas las motos \n");
             System.out.println("6 Mostrar las cesiones realizadas \n");
-            System.out.println("7 Salir del programa");
+            System.out.println("7 Incrementar los gastos de una moto \n");
+            System.out.println("8 Salir del programa");
 
             m = sc.nextInt();
 
@@ -130,6 +131,9 @@ public class GestorMotos
                     mostrarCesiones();
                     break;
                 case 7:
+                    incrementarGastosMoto();
+                    break;
+                case 8:
                     salir();
                     salir = true;
                     break;
@@ -231,6 +235,18 @@ public class GestorMotos
                 System.out.println("No puede dejar este campo en blanco, introducir un cero o un numero negativo.\n");
         }while(coste <= 0);
         
+        //Pedimos el concepto de otros gastos de esta moto que han de ser superiores a 0 o campo en blanco, aceptamos que sea 0
+        float otrosGastos = -1;
+        do
+        {
+            System.out.println("\n Paso 6: Introduce el total de otros gastos.\n");
+            otrosGastos = sc.nextFloat();
+            if(otrosGastos < 0)
+            {
+                System.out.println("No puede dejar este campo en blanco o introducir valores negativos. \n");
+            }
+        }while(otrosGastos<0);
+        
         //ASIGNAMOS LA MOTO A UN SOCIO
         Scanner scanner = new Scanner(System.in);
         do
@@ -242,7 +258,7 @@ public class GestorMotos
             
             if(socioActual != null && (socioActual.getEutosMotosPropiedad()+ coste) < costemaximo)
             {
-                Moto m = new Moto( nombre,  cc,  matriculaNueva, coste,  socioActual);
+                Moto m = new Moto( nombre,  cc,  matriculaNueva, coste,  socioActual, otrosGastos);
                 listaMotos.add(m);
                 m.getIDMoto();
                 socioActual.anyadirMoto(m);
@@ -462,5 +478,54 @@ public class GestorMotos
         {
             System.out.println("Ha ocurrido un error en la creación del fichero y no se han guardado los datos. \n");
         }
+    }
+    
+    
+    void incrementarGastosMoto()
+    {
+        Scanner sc = new Scanner(System.in);
+        
+        int numeroMoto = 0;
+        int posicion = 1;
+        float gastoExtra = -1;
+        
+        Moto motoCambio;
+        //Se muestran todas las motos del sistema
+        System.out.println("\n Las motos del sistema son las siguientes: \n");
+        for(Moto moto: listaMotos)
+        {
+            System.out.println("Moto numero "+posicion);
+            System.out.println(moto.toString());
+            System.out.println("\n");
+            posicion++;
+        }
+        //Elije una moto y si es valida pide el importe a añadir, lo añade y lo muestra por pantalla
+        if(posicion == 1)
+                System.out.println("No hay motos en el sistema \n");
+            else
+            {
+                //Se le pide una moto valida
+                do
+                {
+                    System.out.println("\n Paso 1:Introduzca el numero de la moto que desea ceder \n");
+                    numeroMoto = sc.nextInt();
+                    if(numeroMoto<0 && numeroMoto > posicion)
+                        System.out.println("El numero introducido no es correcto. \n");
+                }while(numeroMoto<0 && numeroMoto > posicion);
+                motoCambio = listaMotos.get(numeroMoto-1);
+                
+                //Pide el gasto extra y controla que no sea negativo o en blanco
+                do
+                {
+                    System.out.println("\n Paso 2: Introduce el gasto que hay que añadir. \n");
+                    gastoExtra = sc.nextFloat();
+                    if(gastoExtra < 0)
+                        System.out.println("El campo no puede estar en blanco o ser negativo");
+                }while(gastoExtra < 0);
+                
+                motoCambio.anyadirGastos(gastoExtra);
+                System.out.println("Los gastos de la moto "+ motoCambio.getNombreMoto()+" se han cambiado con exito, ahora tiene "
+                        + motoCambio.getOtrosGastos()+ "€ como otros gastos.");
+            }
     }
 }
