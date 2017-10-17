@@ -68,7 +68,11 @@ public class Cesion
     
      public String toString()
     {
-        return "\n Antiguo propietario:  " + antiguoPropietario.getNombreSocio() + "\n Nuevo Propietario: " + nuevoPropietario.getNombreSocio() + "\n MotoCedida: " +  motoCedida.getNombreMoto() + "\n Fecha de la cesion: " +fechaCesion.getDay()+ "/" +fechaCesion.getMonth() + "/" +fechaCesion.getYear()+"\n ********************* \n";     
+        return "\n Antiguo propietario:  " + antiguoPropietario.getNombreSocio() 
+                + "\n Nuevo Propietario: " + nuevoPropietario.getNombreSocio() 
+                + "\n MotoCedida: " +  motoCedida.getNombreMoto() + "\n Fecha de la cesion: " 
+                +fechaCesion.toString()
+                +"\n ********************* \n";     
     }
     
 }

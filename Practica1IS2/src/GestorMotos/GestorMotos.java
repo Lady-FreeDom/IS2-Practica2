@@ -152,7 +152,7 @@ public class GestorMotos
             {
              Socio s = new Socio(nombre); 
              listaSocios.add(s);
-             System.out.println(listaSocios.toString());
+             System.out.println("El socio ha sido creado y añadido. \n");
             }
         }while(existe);
     }
