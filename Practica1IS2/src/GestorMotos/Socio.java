@@ -143,7 +143,7 @@ public class Socio
     @Override
     public String toString()
     {
-        return "ID SOCIO " + ID_socio + " Nombre " + nombreSocio + " Motos en propiedad " + mostrarMotosPropiedad()+ "\n ********************* \n";     
+        return "ID SOCIO " + ID_socio + " Nombre " + nombreSocio + " Motos en propiedad \n" + mostrarMotosPropiedad()+ "\n ********************* \n";     
     }
     
 }

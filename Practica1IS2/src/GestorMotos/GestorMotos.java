@@ -21,6 +21,7 @@ public class GestorMotos
     ArrayList<Moto> listaMotos;
     ArrayList<Socio> listaSocios;
     ArrayList<Cesion> listaCesiones;
+    static float costemaximo = 0;
 
     /******************** main ********************
     * Main del proyecto
@@ -28,6 +29,11 @@ public class GestorMotos
     public static void main(String[] args) 
     {
         GestorMotos g = new GestorMotos();
+        
+        System.out.println("Introduce el coste maximo de todas las motos en propiedad de un cliente");
+        Scanner scanner = new Scanner(System.in);
+        costemaximo = scanner.nextFloat();
+        
         g.menu(); 
     }
     
@@ -81,8 +87,11 @@ public class GestorMotos
     ***********************************************/
     public void menu()
     {
+        
+        
         int m;  
         boolean salir = false;
+      
         do
         {
             Scanner sc = new Scanner(System.in);
@@ -231,7 +240,7 @@ public class GestorMotos
 
             socioActual = devuelveSocio(sociomoto);
             
-            if(socioActual != null && (socioActual.getEutosMotosPropiedad()+ coste) < 6000)
+            if(socioActual != null && (socioActual.getEutosMotosPropiedad()+ coste) < costemaximo)
             {
                 Moto m = new Moto( nombre,  cc,  matriculaNueva, coste,  socioActual);
                 listaMotos.add(m);
@@ -379,7 +388,7 @@ public class GestorMotos
                         System.out.println("El numero introducido no es correcto. \n");
                 }while(numeroMoto<0 && numeroMoto > posicion);
                 motoCedida = motosAntiguoPropietario.get(numeroMoto-1);
-                if((nuevoPropietarioSocio.getEutosMotosPropiedad()+ motoCedida.getCosteMoto()) < 6000)
+                if((nuevoPropietarioSocio.getEutosMotosPropiedad()+ motoCedida.getCosteMoto()) < costemaximo)
                 {
                     antiguoPropietarioSocio.quitarMoto(motoCedida);
                     nuevoPropietarioSocio.anyadirMoto(motoCedida);
