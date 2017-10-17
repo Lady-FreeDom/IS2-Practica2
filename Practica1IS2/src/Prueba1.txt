@@ -1,0 +1,73 @@
+****************** LISTA DE SOCIOS ******************
+
+ID SOCIO 0 Nombre Elena Martin Motos en propiedad [Moto tipo: Vespa Primavera con ID: 00002 Matricula: 0000BBB
+ Coste: 2500.0€ 
+ ********************* 
+]
+ ********************* 
+
+ID SOCIO 1 Nombre Sara Monzo Motos en propiedad [Moto tipo: Motobenae Poney AG2 con ID: 00003 Matricula: 0000CCC
+ Coste: 2300.0€ 
+ ********************* 
+, Moto tipo: Bultaco con ID: 00004 Matricula: 0000DDD
+ Coste: 1.0€ 
+ ********************* 
+]
+ ********************* 
+
+ID SOCIO 2 Nombre Andros Peñas Motos en propiedad [Moto tipo: Guzzi Cardelino con ID: 00005 Matricula: 0000EEE
+ Coste: 1200.0€ 
+ ********************* 
+, Moto tipo: Ducati mini con ID: 00006 Matricula: 0000FFF
+ Coste: 4000.0€ 
+ ********************* 
+]
+ ********************* 
+
+ID SOCIO 3 Nombre Lucia Perez Motos en propiedad [Moto tipo: Vespa Primavera con ID: 00001 Matricula: 0000AAA
+ Coste: 2500.0€ 
+ ********************* 
+]
+ ********************* 
+
+
+
+
+****************** LISTA DE MOTOS ******************
+
+Moto tipo: Vespa Primavera con ID: 00001 Matricula: 0000AAA
+ Coste: 2500.0€ 
+ ********************* 
+
+Moto tipo: Vespa Primavera con ID: 00002 Matricula: 0000BBB
+ Coste: 2500.0€ 
+ ********************* 
+
+Moto tipo: Motobenae Poney AG2 con ID: 00003 Matricula: 0000CCC
+ Coste: 2300.0€ 
+ ********************* 
+
+Moto tipo: Bultaco con ID: 00004 Matricula: 0000DDD
+ Coste: 1.0€ 
+ ********************* 
+
+Moto tipo: Guzzi Cardelino con ID: 00005 Matricula: 0000EEE
+ Coste: 1200.0€ 
+ ********************* 
+
+Moto tipo: Ducati mini con ID: 00006 Matricula: 0000FFF
+ Coste: 4000.0€ 
+ ********************* 
+
+
+
+
+****************** LISTA DE CESIONES ******************
+
+
+ Antiguo propietario:  Elena Martin
+ Nuevo Propietario: Lucia Perez
+ MotoCedida: Vespa Primavera
+ Fecha de la cesion: 1/9/117
+ ********************* 
+
