@@ -99,13 +99,14 @@ public class GestorMotos
             System.out.println("********************   SOFTWARE ACAMA ******************** \n");
             System.out.println("Bienvenido, seleccione una de las siguientes opciones introduciendo el numero \n");
             System.out.println("1 Registrar un nuevo miembro \n");
-            System.out.println("2 Registrar una nueva motocicleta \n");
-            System.out.println("3 Registrar una cesion \n");
-            System.out.println("4 Listar en pantalla los miembros con moto en posesion \n");
-            System.out.println("5 Listar todas las motos \n");
-            System.out.println("6 Mostrar las cesiones realizadas \n");
-            System.out.println("7 Incrementar los gastos de una moto \n");
-            System.out.println("8 Salir del programa");
+            System.out.println("2 Eliminar miembro |n");
+            System.out.println("3 Registrar una nueva motocicleta \n");
+            System.out.println("4 Registrar una cesion \n");
+            System.out.println("5 Listar en pantalla los miembros con moto en posesion \n");
+            System.out.println("6 Listar todas las motos \n");
+            System.out.println("7 Mostrar las cesiones realizadas \n");
+            System.out.println("8 Incrementar los gastos de una moto \n");
+            System.out.println("9 Salir del programa");
 
             m = sc.nextInt();
 
@@ -116,24 +117,29 @@ public class GestorMotos
                     registrarNuevoMiembro();
                     break;
                 case 2:
-                    registrarNuevaMoto();
+                    eliminarSocio();
                     break;
                 case 3:
-                    registrarNuevaCesion();
+                    registrarNuevaMoto();
                     break;
-                case 4:
-                     mostrarListadoSociosPropietarios();
+                case 4: 
+                    System.out.println(" \n Paso 1: Introduzca el nombre del socio que vaya a ceder la moto \n");
+                    String antiguoPropietario = sc.nextLine();
+                    registrarNuevaCesion(antiguoPropietario);
                     break;
                 case 5:
-                    mostrarListadoMotos();
+                     mostrarListadoSociosPropietarios();
                     break;
                 case 6:
-                    mostrarCesiones();
+                    mostrarListadoMotos();
                     break;
                 case 7:
-                    incrementarGastosMoto();
+                    mostrarCesiones();
                     break;
                 case 8:
+                    incrementarGastosMoto();
+                    break;
+                case 9:
                     salir();
                     salir = true;
                     break;
@@ -345,16 +351,17 @@ public class GestorMotos
     
     /**************** registrarNuevaCesion **************
     * Realiza una nueva cesion y la registra            *
+    * @param antiguoPropietario                         *
     * @return void                                      *
     *****************************************************/
-    void registrarNuevaCesion()
+    void registrarNuevaCesion(String antiguoPropietario)
     {
         boolean operacionRealizada = false;
         do
         {
             Scanner sc = new Scanner(System.in);
         
-            String antiguoPropietario = "";
+            //String antiguoPropietario = "";
             String nuevoPropietario = "";
             Socio antiguoPropietarioSocio = null;
             Socio nuevoPropietarioSocio = null;
@@ -365,11 +372,15 @@ public class GestorMotos
             // Pedimos el nombre del actual propietario hasta que exista y no este en blanco
             do
             {
-                System.out.println(" \n Paso 1: Introduzca el nombre del socio que vaya a ceder la moto \n");
-                antiguoPropietario = sc.nextLine();
+                //System.out.println(" \n Paso 1: Introduzca el nombre del socio que vaya a ceder la moto \n");
+                //antiguoPropietario = sc.nextLine();
                 antiguoPropietarioSocio = devuelveSocio(antiguoPropietario);   
                 if(antiguoPropietario.equals("") || antiguoPropietarioSocio == null)
+                {
                     System.out.println("El campo introducido está en blanco o el socio no existe \n");
+                    System.out.println(" \n Paso 1: Introduzca el nombre del socio que vaya a ceder la moto \n");
+                    antiguoPropietario = sc.nextLine();
+                }
             }while(antiguoPropietario.equals("") || antiguoPropietarioSocio == null);
             
             //Pedimos el nombre del nuevo propietario hasta que exista, no esté en blanco y sea distinto al antiguo propietario
@@ -480,7 +491,10 @@ public class GestorMotos
         }
     }
     
-    
+    /********** incrementarGastosMoto ************
+    * Aumenta los otros gastos de una moto       *
+    * @return void                               *
+    **********************************************/
     void incrementarGastosMoto()
     {
         Scanner sc = new Scanner(System.in);
@@ -527,5 +541,44 @@ public class GestorMotos
                 System.out.println("Los gastos de la moto "+ motoCambio.getNombreMoto()+" se han cambiado con exito, ahora tiene "
                         + motoCambio.getOtrosGastos()+ "€ como otros gastos.");
             }
+    }
+    
+    /********** eliminarSocio ************
+    * Elimina un socio de listaSocios    *
+    * @return void                       *
+    **************************************/
+    void eliminarSocio()
+    {
+        Scanner sc = new Scanner(System.in);
+        
+        Socio socioEliminar = null;
+        String nombreSocio = "";
+        
+        do
+        {
+            System.out.println("\n Paso 1: Introduzca el nombre del socio que desea eleminar \n");
+            nombreSocio = sc.nextLine();
+            socioEliminar = devuelveSocio(nombreSocio);
+            if(socioEliminar == null)
+                System.out.println("El nombre del socio introducido no existe. \n");
+        }while(socioEliminar == null);
+        
+        //Obtenemos la lista de motos en propiedad del socio a eliminar
+        ArrayList<Moto> motosSocio = socioEliminar.getArrayMotosPropiedad();
+        if(!motosSocio.isEmpty())
+        {
+            System.out.println("\n Paso 2: El socio "+nombreSocio+ "tiene motos en su propiedad, hay que realizar cesiones.");
+            for(Moto m: motosSocio)
+            {
+                registrarNuevaCesion(nombreSocio);
+            }
+            System.out.println("El socio ya no tiene motos en propiedad y ha sido eliminado. \n");
+            listaSocios.remove(socioEliminar);
+        }
+        else
+        {
+            System.out.println("El socio "+nombreSocio+ "no tiene motos en propiedad y ha sido eliminado\n");
+            listaSocios.remove(socioEliminar);
+        }
     }
 }
