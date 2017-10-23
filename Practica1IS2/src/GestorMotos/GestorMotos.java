@@ -48,7 +48,7 @@ public class GestorMotos
         
         Socio socio1 = new Socio ("Elena Martin");
         Socio socio2 = new Socio ("Sara Monzo");
-        Socio socio3 = new Socio ("Andros Peñas");
+        Socio socio3 = new Socio ("Andros");
       
         
         Moto moto1 = new Moto ("Vespa Primavera", "125","0000AAA",2500, socio1, 10);
@@ -99,14 +99,15 @@ public class GestorMotos
             System.out.println("********************   SOFTWARE ACAMA ******************** \n");
             System.out.println("Bienvenido, seleccione una de las siguientes opciones introduciendo el numero \n");
             System.out.println("1 Registrar un nuevo miembro \n");
-            System.out.println("2 Eliminar miembro |n");
+            System.out.println("2 Eliminar miembro \n");
             System.out.println("3 Registrar una nueva motocicleta \n");
             System.out.println("4 Registrar una cesion \n");
             System.out.println("5 Listar en pantalla los miembros con moto en posesion \n");
             System.out.println("6 Listar todas las motos \n");
             System.out.println("7 Mostrar las cesiones realizadas \n");
             System.out.println("8 Incrementar los gastos de una moto \n");
-            System.out.println("9 Salir del programa");
+            System.out.println("9 Mostrar lista de miembros con mas cesiones \n");
+            System.out.println("10 Salir del programa");
 
             m = sc.nextInt();
 
@@ -140,6 +141,9 @@ public class GestorMotos
                     incrementarGastosMoto();
                     break;
                 case 9:
+                    miembrosConMasCesiones();
+                    break;
+                case 10:
                     salir();
                     salir = true;
                     break;
@@ -580,5 +584,53 @@ public class GestorMotos
             System.out.println("El socio "+nombreSocio+ "no tiene motos en propiedad y ha sido eliminado\n");
             listaSocios.remove(socioEliminar);
         }
+    }
+    
+    /***************************** miembrosConMasCesiones *************************************
+    * Muestra el arraylist de miembros que mas cesiones ha recibido y las motos implicadas    *
+    * @return void                                                                            *
+    ******************************************************************************************/
+    void miembrosConMasCesiones()
+    {
+        Socio s = null;
+        int maximo = 0;
+        int contador = 0;
+         ArrayList<Moto> moto_aux = new ArrayList <Moto>();
+      
+        for(Cesion c: listaCesiones) //Aumenta el contador de cada socio dependiendo de las cesiones reaizadas
+        {
+            s = c.getNuevoPropietario();
+            contador = s.getContadorCesiones();
+            contador = s.aumentarContadorCesiones(contador);
+            if(s.getContadorCesiones() > maximo)
+            {
+                maximo = s.getContadorCesiones();
+            }
+        }
+       
+        for (Socio socio : listaSocios)
+        {
+            if(socio.getContadorCesiones() == maximo)
+            {
+                System.out.println("El miembro que mas cesiones ha recibido es: " + socio.getNombreSocio() + " con " + socio.getContadorCesiones() +" Cesiones" );
+                
+                moto_aux = socio.getArrayMotosPropiedad();
+                
+                for(Cesion cesion : listaCesiones)
+                {
+                    for (Moto m_aux: moto_aux)
+                    {
+                        if(cesion.getMotoCedida().getIDMoto().equals(m_aux.getIDMoto()))
+                        {
+                            System.out.println(m_aux.toString());
+                        }
+                       
+                    } 
+                }
+               
+            }
+       
+        }
+        
     }
 }

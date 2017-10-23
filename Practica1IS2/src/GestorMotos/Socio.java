@@ -20,6 +20,7 @@ public class Socio
     private int numMotosPropiedad;
     private float eurosMotosPropiedad;
     private ArrayList <Moto> motosPropiedad;
+    private  int contadorCesiones = 0;
     
     
     /******************** Socio ******************
@@ -34,6 +35,7 @@ public class Socio
         ID_static ++;
         this.cadena_IDSocio = String.format("%03d", ID_static);
         motosPropiedad = new ArrayList<Moto>();
+        this.contadorCesiones = contadorCesiones;
     }
   
     
@@ -88,6 +90,34 @@ public class Socio
         return this.eurosMotosPropiedad;
     }
     
+    /******************** getContadorCesiones ******************
+    * Devuelve el parametro contadorCesiones                   *
+    * @return int                                              *
+    ************************************************************/
+    int getContadorCesiones()
+    {
+        return this.contadorCesiones;
+    }
+    
+    /******************** setContadorCesiones ******************
+    * Asigna el parametro contadorCesiones                     *
+    * @param contadorCesiones                                  *
+    * @return void                                             *
+    ***********************************************************/
+    void setContadorCesiones( int contadorCesiones)
+    {
+        this.contadorCesiones = contadorCesiones;
+    }
+    
+    /******************** aumentarContadorCesiones ******************
+    * Aumenta el valor del contador en 1                       *
+    * @param contadorCesiones                                  *
+    * @return int                                              *
+    *************************************************************/
+    int aumentarContadorCesiones (int contadorCesiones)
+    {
+        return this.contadorCesiones ++;
+    }
     
     /******************** getArrayListMotosPropiedad ******************
     * Devuelve el arraylist de motosPropiedad                         *
